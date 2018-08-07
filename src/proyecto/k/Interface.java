@@ -103,7 +103,7 @@ public class Interface extends JFrame {
         JLabel label4 = new JLabel("Cantidad de Productos:");
         label4.setBounds(30, 90, 170, 30);
         
-<<<<<<< HEAD
+
         JLabel label5 = new JLabel ("Dinero  :");
         label5.setBounds(30,450,160,30);
         
@@ -113,16 +113,13 @@ public class Interface extends JFrame {
         
         JLabel label7 = new JLabel ("Vuelto   :");
         label7.setBounds(30,530,160,30);
-        
-   
-=======
+
         Date fecha = new Date();
         DateFormat Formato = new SimpleDateFormat("dd/08/yyyy   -   HH:mm");
         
         JLabel hora = new JLabel(Formato.format(fecha));
         hora.setBounds(330, 530, 200, 30);
-        
->>>>>>> 6d9561cd19fbdf57e7fd4508181d056ff5876b39
+    
         ///////////////////////////
         JTable tabla = new JTable();
         Object[] columns = {"Producto", "Cantidad", "Código", "Precio $"};
@@ -224,17 +221,17 @@ public class Interface extends JFrame {
         frame.add(quitar);
         frame.add(scroll);
         frame.add(cantidad);
-<<<<<<< HEAD
+
         frame.add(dinero);
         frame.add(total);
         frame.add(vuelto);
         frame.add(label5);
         frame.add(label6);
         frame.add(label7);
-=======
+
         frame.add(hora);
         frame.add(salir);
->>>>>>> 6d9561cd19fbdf57e7fd4508181d056ff5876b39
+
         frame.setVisible(true);
 
     }
