@@ -1,6 +1,7 @@
 package proyecto.k;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -35,7 +36,29 @@ public class Interface extends JFrame {
         JTextField precio = new JTextField();
         precio.setBounds(30, 280, 180, 30);
         precio.requestFocus();
-
+ 
+        //CAJA DE CAMBIO 
+        JTextField dinero = new JTextField();
+        dinero.setBounds(120,450,90,30);
+        dinero.requestFocus();
+        dinero.setBackground(Color.BLACK);
+        dinero.setForeground(Color.GREEN);
+        dinero.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        JTextField total = new JTextField();
+        total.setBounds(120,490,90,30);
+        total.requestFocus();
+        total.setBackground(Color.BLACK);
+        total.setForeground(Color.GREEN);
+        total.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        
+        JTextField vuelto = new JTextField();
+        vuelto.setBounds(120,530,90,30);
+        vuelto.requestFocus();
+        vuelto.setBackground(Color.BLACK);
+        vuelto.setForeground(Color.GREEN);
+        vuelto.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+       
         ////////////////////
         JButton agregar = new JButton("Agregar");
         agregar.setBounds(30, 320, 120, 30);
@@ -58,7 +81,18 @@ public class Interface extends JFrame {
 
         JLabel label4 = new JLabel("Cantidad de Productos:");
         label4.setBounds(30, 90, 170, 30);
-
+        
+        JLabel label5 = new JLabel ("Dinero  :");
+        label5.setBounds(30,450,160,30);
+        
+        
+        JLabel label6 = new JLabel ("Total     :");
+        label6.setBounds(30,490,160,30);
+        
+        JLabel label7 = new JLabel ("Vuelto   :");
+        label7.setBounds(30,530,160,30);
+        
+   
         ///////////////////////////
         JTable tabla = new JTable();
         Object[] columns = {"Producto", "Cantidad", "Código", "Precio $"};
@@ -112,8 +146,8 @@ public class Interface extends JFrame {
                     }
                 }
 
-            }
-
+            } 
+        
         });
 
         tabla.addMouseListener(new MouseAdapter() {
@@ -160,6 +194,12 @@ public class Interface extends JFrame {
         frame.add(quitar);
         frame.add(scroll);
         frame.add(cantidad);
+        frame.add(dinero);
+        frame.add(total);
+        frame.add(vuelto);
+        frame.add(label5);
+        frame.add(label6);
+        frame.add(label7);
         frame.setVisible(true);
 
     }
