@@ -6,12 +6,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class Interface extends JFrame {
 
-    public static void main(String[] args) {
+    public Interface() {
 
         JFrame frame = new JFrame("Zona de Cobro - H&L Co.");
         frame.setSize(780, 600);
@@ -68,6 +71,24 @@ public class Interface extends JFrame {
 
         JButton quitar = new JButton("Quitar");
         quitar.setBounds(30, 400, 120, 30);
+        
+        JButton salir = new JButton("Salir");
+        salir.setBounds(650, 530, 100, 30);
+        salir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int respuesta = JOptionPane.showConfirmDialog(null,
+                        "¿Desea salir del programa?",
+                        "Salir",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    frame.dispose();
+                    LogIn log = new LogIn();
+                    log.setVisible(true);
+                }
+            }
+        });
 
         /////////////////////////
         JLabel label = new JLabel("Nombre del Producto:");
@@ -82,6 +103,7 @@ public class Interface extends JFrame {
         JLabel label4 = new JLabel("Cantidad de Productos:");
         label4.setBounds(30, 90, 170, 30);
         
+<<<<<<< HEAD
         JLabel label5 = new JLabel ("Dinero  :");
         label5.setBounds(30,450,160,30);
         
@@ -93,6 +115,14 @@ public class Interface extends JFrame {
         label7.setBounds(30,530,160,30);
         
    
+=======
+        Date fecha = new Date();
+        DateFormat Formato = new SimpleDateFormat("dd/08/yyyy   -   HH:mm");
+        
+        JLabel hora = new JLabel(Formato.format(fecha));
+        hora.setBounds(330, 530, 200, 30);
+        
+>>>>>>> 6d9561cd19fbdf57e7fd4508181d056ff5876b39
         ///////////////////////////
         JTable tabla = new JTable();
         Object[] columns = {"Producto", "Cantidad", "Código", "Precio $"};
@@ -194,12 +224,17 @@ public class Interface extends JFrame {
         frame.add(quitar);
         frame.add(scroll);
         frame.add(cantidad);
+<<<<<<< HEAD
         frame.add(dinero);
         frame.add(total);
         frame.add(vuelto);
         frame.add(label5);
         frame.add(label6);
         frame.add(label7);
+=======
+        frame.add(hora);
+        frame.add(salir);
+>>>>>>> 6d9561cd19fbdf57e7fd4508181d056ff5876b39
         frame.setVisible(true);
 
     }
