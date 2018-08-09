@@ -233,6 +233,19 @@ public class Interface extends JFrame {
                     cantidad.setText("");
                     codigo.setText("");
                     precio.setText("");
+
+                    String a = "";
+                    double totaly = 0;
+                    double b = 0;
+
+                    for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+
+                        a = String.valueOf(tabla.getValueAt(fila, 3));
+                        b = Integer.valueOf(a);
+                        totaly = totaly + b;
+                    }
+                    total.setText(String.valueOf(totaly));
+
                 }
 
             }
