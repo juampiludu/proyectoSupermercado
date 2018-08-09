@@ -80,8 +80,6 @@ public class Interface extends JFrame {
         total.setBackground(Color.BLACK);
         total.setForeground(Color.GREEN);
         total.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        
         total.addKeyListener(new KeyAdapter()
         {
             public void keyTyped(KeyEvent e)
@@ -105,16 +103,28 @@ public class Interface extends JFrame {
         recibido.setBackground(Color.BLACK);
         recibido.setForeground(Color.GREEN);
         recibido.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        recibido.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char caracter = e.getKeyChar();
 
+            // Verificar si la tecla pulsada no es un digito
+                if(((caracter < '0') ||
+                (caracter > '9')) &&
+                (caracter != '\b' /*corresponde a BACK_SPACE*/))
+                {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
 
         JTextField vuelto = new JTextField();
         vuelto.setBounds(120, 530, 90, 30);
         vuelto.requestFocus();
         vuelto.setBackground(Color.BLACK);
         vuelto.setForeground(Color.GREEN);
-        vuelto.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        
+        vuelto.setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
         vuelto.addKeyListener(new KeyAdapter()
         {
             public void keyTyped(KeyEvent e)
@@ -133,9 +143,6 @@ public class Interface extends JFrame {
         
         ////////BOTONES DE LA TABLA////////////
 
-
-        ////////////////////
-
         JButton agregar = new JButton("Agregar");
         agregar.setBounds(30, 320, 120, 30);
 
@@ -144,10 +151,6 @@ public class Interface extends JFrame {
 
         JButton quitar = new JButton("Quitar");
         quitar.setBounds(30, 400, 120, 30);
-
-  
-
-
 
         JButton salir = new JButton("Salir");
         salir.setBounds(650, 530, 100, 30);
