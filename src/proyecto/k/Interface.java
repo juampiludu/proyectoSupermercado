@@ -8,9 +8,12 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +29,13 @@ public class Interface extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(Color.lightGray);
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagenes/icono.png"));
+        try {
+            Fondo fondo = new Fondo(ImageIO.read(new File("src/imagenes/blanco.jpg")));
+            JPanel panel = (JPanel) frame.getContentPane();
+            panel.setBorder(fondo);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(frame, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
         ////////TEXT AREA DE LA TABLA//////////////
         JTextField product = new JTextField();
@@ -40,11 +50,10 @@ public class Interface extends JFrame {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-                // Verificar si la tecla pulsada no es un digito
                 if (((caracter < '0')
                         || (caracter > '9'))
-                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
+                        && (caracter != '\b')) {
+                    e.consume();
                 }
             }
         });
@@ -57,11 +66,10 @@ public class Interface extends JFrame {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-                // Verificar si la tecla pulsada no es un digito
                 if (((caracter < '0')
                         || (caracter > '9'))
-                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
+                        && (caracter != '\b')) {
+                    e.consume();
                 }
             }
         });
@@ -74,11 +82,10 @@ public class Interface extends JFrame {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-                // Verificar si la tecla pulsada no es un digito
                 if (((caracter < '0')
                         || (caracter > '9'))
-                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
+                        && (caracter != '\b')) {
+                    e.consume();
                 }
             }
         });
@@ -95,11 +102,10 @@ public class Interface extends JFrame {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-                // Verificar si la tecla pulsada no es un digito
                 if (((caracter < '0')
                         || (caracter > '9'))
-                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
+                        && (caracter != '\b')) {
+                    e.consume();
                 }
             }
         });
@@ -110,15 +116,15 @@ public class Interface extends JFrame {
         recibido.setBackground(Color.BLACK);
         recibido.setForeground(Color.GREEN);
         recibido.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        recibido.setToolTipText("Ingrese el dinero abonado por el cliente");
         recibido.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-                // Verificar si la tecla pulsada no es un digito
                 if (((caracter < '0')
                         || (caracter > '9'))
-                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
+                        && (caracter != '\b')) {
+                    e.consume();
                 }
             }
         });
@@ -134,11 +140,10 @@ public class Interface extends JFrame {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-                // Verificar si la tecla pulsada no es un digito
                 if (((caracter < '0')
                         || (caracter > '9'))
-                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
+                        && (caracter != '\b')) {
+                    e.consume();
                 }
             }
         });
@@ -171,6 +176,34 @@ public class Interface extends JFrame {
             }
         });
 
+        JButton ok = new JButton("OK");
+        ok.setBounds(220, 490, 55, 30);
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (recibido.getText().equals("")) {
+
+                    JOptionPane.showMessageDialog(null, "No se puede realizar la operacion", "Error", JOptionPane.ERROR_MESSAGE);
+
+                } else {
+
+                    if (total.getText().equals("")) {
+
+                        JOptionPane.showMessageDialog(null, "No se puede realizar la operacion", "Error", JOptionPane.ERROR_MESSAGE);
+
+                    } else {
+
+                        double x = Double.valueOf(recibido.getText());
+                        double y = Double.valueOf(total.getText());
+                        double z = x - y;
+
+                        vuelto.setText(String.valueOf(z));
+                    }
+                }
+            }
+
+        });
+
         /////////LABELS ///////////////
         JLabel label = new JLabel("Nombre del Producto:");
         label.setBounds(30, 10, 160, 30);
@@ -184,8 +217,10 @@ public class Interface extends JFrame {
         JLabel label4 = new JLabel("Cantidad de Productos:");
         label4.setBounds(30, 90, 170, 30);
 
-        JLabel label5 = new JLabel("Total       :");
+        JLabel label5 = new JLabel("Total :");
         label5.setBounds(30, 450, 160, 30);
+        label5.setFont(new java.awt.Font("Tahoma", 1, 20));
+        label5.setForeground(new java.awt.Color(50, 205, 50));
 
         JLabel label6 = new JLabel("Recibido :");
         label6.setBounds(30, 490, 160, 30);
@@ -194,16 +229,12 @@ public class Interface extends JFrame {
         label7.setBounds(30, 530, 160, 30);
 
         Date fecha = new Date();
-        DateFormat Formato = new SimpleDateFormat("dd/08/yyyy   -   HH:mm");
+        DateFormat Formato = new SimpleDateFormat("dd/MM/YYYY   -   HH:mm");
 
         JLabel hora = new JLabel(Formato.format(fecha));
-
         hora.setBounds(300, 530, 200, 40);
 
         ///////////TABLA////////////////
-        hora.setBounds(330, 530, 200, 30);
-
-        ///////////////////////////
         JTable tabla = new JTable();
         Object[] columns = {"Producto", "Cantidad", "Código", "Precio $"};
         DefaultTableModel model = new DefaultTableModel();
@@ -235,13 +266,15 @@ public class Interface extends JFrame {
                     precio.setText("");
 
                     String a = "";
+                    String c = "";
                     double totaly = 0;
                     double b = 0;
 
                     for (int fila = 0; fila < tabla.getRowCount(); fila++) {
 
                         a = String.valueOf(tabla.getValueAt(fila, 3));
-                        b = Integer.valueOf(a);
+                        c = String.valueOf(tabla.getValueAt(fila, 1));
+                        b = Integer.valueOf(a) * Integer.valueOf(c);
                         totaly = totaly + b;
                     }
                     total.setText(String.valueOf(totaly));
@@ -264,6 +297,23 @@ public class Interface extends JFrame {
                     int i = tabla.getSelectedRow();
                     if (i >= 0) {
                         model.removeRow(i);
+
+                        String a = "";
+                        String c = "";
+                        double totaly = 0;
+                        double b = 0;
+
+                        for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+
+                            a = String.valueOf(tabla.getValueAt(fila, 3));
+                            c = String.valueOf(tabla.getValueAt(fila, 1));
+                            b = Integer.valueOf(a) * Integer.valueOf(c);
+                            totaly = totaly + b;
+
+                        }
+
+                        total.setText(String.valueOf(totaly));
+
                     } else {
                         System.out.println("Delete Error");
                     }
@@ -291,7 +341,6 @@ public class Interface extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                // i = the index of the selected row
                 int i = tabla.getSelectedRow();
 
                 if (i >= 0) {
@@ -299,6 +348,23 @@ public class Interface extends JFrame {
                     model.setValueAt(cantidad.getText(), i, 1);
                     model.setValueAt(codigo.getText(), i, 2);
                     model.setValueAt(precio.getText(), i, 3);
+
+                    String a = "";
+                    String c = "";
+                    double totaly = 0;
+                    double b = 0;
+
+                    for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+
+                        a = String.valueOf(tabla.getValueAt(fila, 3));
+                        c = String.valueOf(tabla.getValueAt(fila, 1));
+                        b = Integer.valueOf(a) * Integer.valueOf(c);
+                        totaly = totaly + b;
+
+                    }
+
+                    total.setText(String.valueOf(totaly));
+
                 } else {
                     System.out.println("Update Error");
                 }
@@ -325,6 +391,7 @@ public class Interface extends JFrame {
         frame.add(label7);
         frame.add(hora);
         frame.add(salir);
+        frame.add(ok);
         frame.setVisible(true);
 
     }
