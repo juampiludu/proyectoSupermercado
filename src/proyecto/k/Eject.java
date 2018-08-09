@@ -37,5 +37,4 @@ public class Eject {
         Interface supermerc = new Interface();
     
     }
-    
 }

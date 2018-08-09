@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DateFormat;
@@ -15,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class Interface extends JFrame {
 
     public Interface() {
-
+        
         JFrame frame = new JFrame("Zona de Cobro - H&L Co.");
         frame.setSize(780, 600);
         frame.setResizable(false);
@@ -24,21 +26,25 @@ public class Interface extends JFrame {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(Color.lightGray);
 
-        //////////////////////
+        ////////TEXT AREA DE LA TABLA//////////////
         JTextField product = new JTextField();
         product.setBounds(30, 40, 180, 30);
         product.requestFocus();
+        product.setToolTipText("Ingrese");
 
         JTextField cantidad = new JTextField();
         cantidad.setBounds(30, 120, 180, 30);
+        cantidad.setToolTipText("Ingrese");
 
         JTextField codigo = new JTextField();
         codigo.setBounds(30, 200, 180, 30);
         codigo.requestFocus();
+        codigo.setToolTipText("Ingrese");
 
         JTextField precio = new JTextField();
         precio.setBounds(30, 280, 180, 30);
         precio.requestFocus();
+        precio.setToolTipText("Ingrese");
  
         //CAJA DE CAMBIO 
         JTextField dinero = new JTextField();
@@ -48,6 +54,22 @@ public class Interface extends JFrame {
         dinero.setForeground(Color.GREEN);
         dinero.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
+        dinero.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char caracter = e.getKeyChar();
+
+            // Verificar si la tecla pulsada no es un digito
+                if(((caracter < '0') ||
+                (caracter > '9')) &&
+                (caracter != '\b' /*corresponde a BACK_SPACE*/))
+                {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
+        
         JTextField total = new JTextField();
         total.setBounds(120,490,90,30);
         total.requestFocus();
@@ -55,14 +77,46 @@ public class Interface extends JFrame {
         total.setForeground(Color.GREEN);
         total.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         
+        total.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char caracter = e.getKeyChar();
+
+            // Verificar si la tecla pulsada no es un digito
+                if(((caracter < '0') ||
+                (caracter > '9')) &&
+                (caracter != '\b' /*corresponde a BACK_SPACE*/))
+                {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
+
         JTextField vuelto = new JTextField();
         vuelto.setBounds(120,530,90,30);
         vuelto.requestFocus();
         vuelto.setBackground(Color.BLACK);
         vuelto.setForeground(Color.GREEN);
         vuelto.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-       
-        ////////////////////
+        
+        vuelto.addKeyListener(new KeyAdapter()
+        {
+            public void keyTyped(KeyEvent e)
+            {
+                char caracter = e.getKeyChar();
+
+            // Verificar si la tecla pulsada no es un digito
+                if(((caracter < '0') ||
+                (caracter > '9')) &&
+                (caracter != '\b' /*corresponde a BACK_SPACE*/))
+                {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
+        
+        ////////BOTONES DE LA TABLA////////////
         JButton agregar = new JButton("Agregar");
         agregar.setBounds(30, 320, 120, 30);
 
@@ -71,7 +125,7 @@ public class Interface extends JFrame {
 
         JButton quitar = new JButton("Quitar");
         quitar.setBounds(30, 400, 120, 30);
-        
+  
         JButton salir = new JButton("Salir");
         salir.setBounds(650, 530, 100, 30);
         salir.addActionListener(new ActionListener() {
@@ -90,7 +144,7 @@ public class Interface extends JFrame {
             }
         });
 
-        /////////////////////////
+        /////////LABELS ///////////////
         JLabel label = new JLabel("Nombre del Producto:");
         label.setBounds(30, 10, 160, 30);
 
@@ -118,9 +172,9 @@ public class Interface extends JFrame {
         DateFormat Formato = new SimpleDateFormat("dd/08/yyyy   -   HH:mm");
         
         JLabel hora = new JLabel(Formato.format(fecha));
-        hora.setBounds(330, 530, 200, 30);
+        hora.setBounds(300, 530, 200, 40);
     
-        ///////////////////////////
+        ///////////TABLA////////////////
         JTable tabla = new JTable();
         Object[] columns = {"Producto", "Cantidad", "Código", "Precio $"};
         DefaultTableModel model = new DefaultTableModel();
@@ -221,19 +275,16 @@ public class Interface extends JFrame {
         frame.add(quitar);
         frame.add(scroll);
         frame.add(cantidad);
-
         frame.add(dinero);
         frame.add(total);
         frame.add(vuelto);
         frame.add(label5);
         frame.add(label6);
         frame.add(label7);
-
         frame.add(hora);
         frame.add(salir);
-
         frame.setVisible(true);
-
+        
     }
 
 }
