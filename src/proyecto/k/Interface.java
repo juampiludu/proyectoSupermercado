@@ -1,6 +1,7 @@
 package proyecto.k;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -24,6 +25,7 @@ public class Interface extends JFrame {
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(Color.lightGray);
+        frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagenes/icono.png"));
 
         ////////TEXT AREA DE LA TABLA//////////////
         JTextField product = new JTextField();
@@ -82,32 +84,13 @@ public class Interface extends JFrame {
         });
 
         //CAJA DE CAMBIO 
-        JTextField dinero = new JTextField();
-        dinero.setBounds(120, 450, 90, 30);
-        dinero.requestFocus();
-        dinero.setBackground(Color.BLACK);
-        dinero.setForeground(Color.GREEN);
-        dinero.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        dinero.addKeyListener(new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
-                char caracter = e.getKeyChar();
-
-                // Verificar si la tecla pulsada no es un digito
-                if (((caracter < '0')
-                        || (caracter > '9'))
-                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
-                    e.consume();  // ignorar el evento de teclado
-                }
-            }
-        });
-
-        //CAJA DE CAMBIO 
         JTextField total = new JTextField();
         total.setBounds(120, 450, 90, 30);
         total.requestFocus();
         total.setBackground(Color.BLACK);
         total.setForeground(Color.GREEN);
         total.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        total.setEditable(false);
         total.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
@@ -146,6 +129,7 @@ public class Interface extends JFrame {
         vuelto.setBackground(Color.BLACK);
         vuelto.setForeground(Color.GREEN);
         vuelto.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        vuelto.setEditable(false);
         vuelto.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
@@ -320,7 +304,6 @@ public class Interface extends JFrame {
         frame.add(quitar);
         frame.add(scroll);
         frame.add(cantidad);
-        frame.add(dinero);
         frame.add(recibido);
         frame.add(total);
         frame.add(vuelto);

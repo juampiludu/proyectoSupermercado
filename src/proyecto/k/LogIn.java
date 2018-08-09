@@ -5,6 +5,7 @@
  */
 package proyecto.k;
 
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -22,6 +23,7 @@ public class LogIn extends javax.swing.JFrame {
      */
     public LogIn() {
         initComponents();
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagenes/icono.png"));
         try {
             Fondo fondo = new Fondo(ImageIO.read(new File("src/imagenes/blanco.jpg")));
             JPanel panel = (JPanel) this.getContentPane();
