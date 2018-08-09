@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class Interface extends JFrame {
 
     public Interface() {
-        
+
         JFrame frame = new JFrame("Zona de Cobro - H&L Co.");
         frame.setSize(780, 600);
         frame.setResizable(false);
@@ -34,68 +34,92 @@ public class Interface extends JFrame {
         JTextField cantidad = new JTextField();
         cantidad.setBounds(30, 120, 180, 30);
         cantidad.setToolTipText("Ingrese");
+        cantidad.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
+
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
 
         JTextField codigo = new JTextField();
         codigo.setBounds(30, 200, 180, 30);
         codigo.requestFocus();
         codigo.setToolTipText("Ingrese");
-
-        JTextField precio = new JTextField();
-        precio.setBounds(30, 280, 180, 30);
-        precio.requestFocus();
-
-        precio.setToolTipText("Ingrese");
- 
-        //CAJA DE CAMBIO 
-        JTextField dinero = new JTextField();
-        dinero.setBounds(120,450,90,30);
-        dinero.requestFocus();
-        dinero.setBackground(Color.BLACK);
-        dinero.setForeground(Color.GREEN);
-        dinero.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        
-        dinero.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+        codigo.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-            // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') ||
-                (caracter > '9')) &&
-                (caracter != '\b' /*corresponde a BACK_SPACE*/))
-                {
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
-        
 
+        JTextField precio = new JTextField();
+        precio.setBounds(30, 280, 180, 30);
+        precio.requestFocus();
+        precio.setToolTipText("Ingrese");
+        precio.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
+
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
 
         //CAJA DE CAMBIO 
+        JTextField dinero = new JTextField();
+        dinero.setBounds(120, 450, 90, 30);
+        dinero.requestFocus();
+        dinero.setBackground(Color.BLACK);
+        dinero.setForeground(Color.GREEN);
+        dinero.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        dinero.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                char caracter = e.getKeyChar();
 
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
+                    e.consume();  // ignorar el evento de teclado
+                }
+            }
+        });
+
+        //CAJA DE CAMBIO 
         JTextField total = new JTextField();
         total.setBounds(120, 450, 90, 30);
         total.requestFocus();
         total.setBackground(Color.BLACK);
         total.setForeground(Color.GREEN);
         total.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        total.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+        total.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-            // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') ||
-                (caracter > '9')) &&
-                (caracter != '\b' /*corresponde a BACK_SPACE*/))
-                {
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
-
 
         JTextField recibido = new JTextField();
         recibido.setBounds(120, 490, 90, 30);
@@ -103,17 +127,14 @@ public class Interface extends JFrame {
         recibido.setBackground(Color.BLACK);
         recibido.setForeground(Color.GREEN);
         recibido.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        recibido.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+        recibido.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-            // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') ||
-                (caracter > '9')) &&
-                (caracter != '\b' /*corresponde a BACK_SPACE*/))
-                {
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
@@ -124,25 +145,21 @@ public class Interface extends JFrame {
         vuelto.requestFocus();
         vuelto.setBackground(Color.BLACK);
         vuelto.setForeground(Color.GREEN);
-        vuelto.setBorder(BorderFactory.createLineBorder(Color.BLACK)); 
-        vuelto.addKeyListener(new KeyAdapter()
-        {
-            public void keyTyped(KeyEvent e)
-            {
+        vuelto.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        vuelto.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
                 char caracter = e.getKeyChar();
 
-            // Verificar si la tecla pulsada no es un digito
-                if(((caracter < '0') ||
-                (caracter > '9')) &&
-                (caracter != '\b' /*corresponde a BACK_SPACE*/))
-                {
+                // Verificar si la tecla pulsada no es un digito
+                if (((caracter < '0')
+                        || (caracter > '9'))
+                        && (caracter != '\b' /*corresponde a BACK_SPACE*/)) {
                     e.consume();  // ignorar el evento de teclado
                 }
             }
         });
-        
-        ////////BOTONES DE LA TABLA////////////
 
+        ////////BOTONES DE LA TABLA////////////
         JButton agregar = new JButton("Agregar");
         agregar.setBounds(30, 320, 120, 30);
 
@@ -198,13 +215,11 @@ public class Interface extends JFrame {
         JLabel hora = new JLabel(Formato.format(fecha));
 
         hora.setBounds(300, 530, 200, 40);
-    
-        ///////////TABLA////////////////
 
+        ///////////TABLA////////////////
         hora.setBounds(330, 530, 200, 30);
 
         ///////////////////////////
-
         JTable tabla = new JTable();
         Object[] columns = {"Producto", "Cantidad", "Código", "Precio $"};
         DefaultTableModel model = new DefaultTableModel();
@@ -305,11 +320,8 @@ public class Interface extends JFrame {
         frame.add(quitar);
         frame.add(scroll);
         frame.add(cantidad);
-
         frame.add(dinero);
-
         frame.add(recibido);
-
         frame.add(total);
         frame.add(vuelto);
         frame.add(label5);
@@ -318,7 +330,7 @@ public class Interface extends JFrame {
         frame.add(hora);
         frame.add(salir);
         frame.setVisible(true);
-        
+
     }
 
 }
