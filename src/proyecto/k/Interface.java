@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.imageio.ImageIO;
@@ -27,7 +26,6 @@ public class Interface extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
-        frame.getContentPane().setBackground(Color.lightGray);
         frame.setIconImage(Toolkit.getDefaultToolkit().getImage("src/imagenes/icono.png"));
         try {
             Fondo fondo = new Fondo(ImageIO.read(new File("src/imagenes/blanco.jpg")));
@@ -228,11 +226,20 @@ public class Interface extends JFrame {
         JLabel label7 = new JLabel("Vuelto     :");
         label7.setBounds(30, 530, 160, 30);
 
-        Date fecha = new Date();
-        DateFormat Formato = new SimpleDateFormat("dd/MM/YYYY   -   HH:mm");
-
-        JLabel hora = new JLabel(Formato.format(fecha));
+        JLabel hora = new JLabel();
         hora.setBounds(300, 530, 200, 40);
+
+        Timer timer = new Timer(1000, new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Date HorNew = new Date();
+                SimpleDateFormat fechaforma = new SimpleDateFormat("dd/MM/YYYY   -   HH:mm:ss");
+                String FfechaSystemA = fechaforma.format(HorNew);
+
+                GestorTime.setFfechaSystem(FfechaSystemA);
+                hora.setText(GestorTime.getFfechaSystem());
+            }
+        });
+        timer.start();
 
         ///////////TABLA////////////////
         JTable tabla = new JTable();
@@ -249,9 +256,9 @@ public class Interface extends JFrame {
         agregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-
-                if (codigo.getText().equals("")) {
-
+                
+                if (codigo.getText().equals("") || product.getText().equals("") || cantidad.getText().equals("") || precio.getText().equals("")) {
+                    
                 } else {
                     row[0] = product.getText();
                     row[1] = cantidad.getText();
@@ -282,6 +289,7 @@ public class Interface extends JFrame {
                 }
 
             }
+            
 
         });
 
