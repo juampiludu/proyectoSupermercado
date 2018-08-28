@@ -1,0 +1,16 @@
+H&L Co. Logistica
+
+Producto = c
+Cantidad = x3
+Precio x Unidad = $3
+Código = #56342
+
+Producto = f
+Cantidad = x4
+Precio x Unidad = $23
+Código = #4343
+
+
+
+TOTAL = $101.0
+Vuelto = $10.0

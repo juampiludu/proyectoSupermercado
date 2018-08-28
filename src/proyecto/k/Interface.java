@@ -15,13 +15,15 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Interface extends JFrame {
 
     public Interface() {
 
         JFrame frame = new JFrame("Zona de Cobro - H&L Co.");
-        frame.setSize(780, 600);
+        frame.setSize(780, 635);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
@@ -157,7 +159,7 @@ public class Interface extends JFrame {
         quitar.setBounds(30, 400, 120, 30);
 
         JButton salir = new JButton("Salir");
-        salir.setBounds(650, 530, 100, 30);
+        salir.setBounds(650, 550, 100, 30);
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -227,7 +229,7 @@ public class Interface extends JFrame {
         label7.setBounds(30, 530, 160, 30);
 
         JLabel hora = new JLabel();
-        hora.setBounds(300, 530, 200, 40);
+        hora.setBounds(30, 565, 200, 40);
 
         Timer timer = new Timer(1000, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -242,7 +244,12 @@ public class Interface extends JFrame {
         timer.start();
 
         ///////////TABLA////////////////
-        JTable tabla = new JTable();
+        JTable tabla = new JTable() {
+            @Override
+            public boolean isCellEditable(int rowIndex, int colIndex) {
+                return false;
+            }
+        };
         Object[] columns = {"Producto", "Cantidad", "Código", "Precio $"};
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(columns);
@@ -258,8 +265,9 @@ public class Interface extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 
                 if (codigo.getText().equals("") || product.getText().equals("") || cantidad.getText().equals("") || precio.getText().equals("")) {
-                    
+
                 } else {
+
                     row[0] = product.getText();
                     row[1] = cantidad.getText();
                     row[2] = codigo.getText();
@@ -287,9 +295,7 @@ public class Interface extends JFrame {
                     total.setText(String.valueOf(totaly));
 
                 }
-
             }
-            
 
         });
 
@@ -379,6 +385,66 @@ public class Interface extends JFrame {
             }
         });
 
+        ////// Boton para generar Ticket //////////
+        JButton pdf = new JButton("Finalizar");
+        pdf.setBounds(300, 550, 100, 30);
+        pdf.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int respuesta = JOptionPane.showConfirmDialog(null,
+                        "¿Desea finalizar con la venta?",
+                        "Finalizar",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (respuesta == JOptionPane.YES_OPTION) {
+
+                    try {
+                        String archivo = "src/DatosTabla.txt";
+                        BufferedWriter bfw = new BufferedWriter(new FileWriter(archivo));
+                        bfw.write("H&L Co. Logistica\n");
+
+                        for (int i = 0; i < tabla.getRowCount(); i++) {
+
+                            bfw.write((String) ("\nProducto = " + tabla.getValueAt(i, 0)));
+                            bfw.write((String) ("\nCantidad = x" + tabla.getValueAt(i, 1)));
+                            bfw.write((String) ("\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)));
+                            bfw.write((String) ("\nCódigo = #" + tabla.getValueAt(i, 2)));
+
+                            bfw.newLine();
+
+                        }
+                        bfw.write((String) ("\n\n\nTOTAL = $" + total.getText()));
+                        bfw.write((String) ("\nVuelto = $" + vuelto.getText()));
+                        bfw.close();
+
+                        System.out.println("El archivo fue salvado correctamente!");
+                    } catch (IOException e) {
+
+                    }
+
+                }
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    TicketDeVenta ticket = new TicketDeVenta();
+                    ticket.setVisible(true);
+                    ticket.setLocationRelativeTo(null);
+                    JTextArea ti = ticket.areaTicket;
+
+                    for (int i = 0; i < tabla.getRowCount(); i++)
+                        ti.setText("H&L Co. Logistica\n"
+                                + "\nProducto = " + tabla.getValueAt(i, 0)
+                                + "\nCantidad = x" + tabla.getValueAt(i, 1)
+                                + "\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)
+                                + "\nCódigo = #" + tabla.getValueAt(i, 2)
+                                + "\n\n\nTOTAL = $" + total.getText()
+                                + "\nVuelto = $" + vuelto.getText());
+                    
+
+                }
+            }
+
+        });
+
+        ///////////////////////////////////
         frame.add(product);
         frame.add(label);
         frame.add(label2);
@@ -400,6 +466,7 @@ public class Interface extends JFrame {
         frame.add(hora);
         frame.add(salir);
         frame.add(ok);
+        frame.add(pdf);
         frame.setVisible(true);
 
     }
