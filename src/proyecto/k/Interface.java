@@ -15,8 +15,6 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 
 public class Interface extends JFrame {
 
@@ -404,55 +402,37 @@ public class Interface extends JFrame {
 
                     } else {
 
-                        try {
-                            String archivo = "src/DatosTabla.txt";
-                            BufferedWriter bfw = new BufferedWriter(new FileWriter(archivo));
-                            bfw.write("H&L Co. Logistica\n");
-
-                            for (int i = 0; i < tabla.getRowCount(); i++) {
-
-                                bfw.write((String) ("\nProducto = " + tabla.getValueAt(i, 0)));
-                                bfw.write((String) ("\nCantidad = x" + tabla.getValueAt(i, 1)));
-                                bfw.write((String) ("\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)));
-                                bfw.write((String) ("\nCódigo = #" + tabla.getValueAt(i, 2)));
-
-                                bfw.newLine();
-
-                            }
-                            bfw.write((String) ("\n\n\nTOTAL = $" + total.getText()));
-                            bfw.write((String) ("\nVuelto = $" + vuelto.getText()));
-                            bfw.close();
-
-                            System.out.println("El archivo fue salvado correctamente!");
-                        } catch (IOException e) {
-
-                        }
-
                         if (respuesta == JOptionPane.YES_OPTION) {
                             TicketDeVenta ticket = new TicketDeVenta();
                             ticket.setVisible(true);
                             ticket.setLocationRelativeTo(null);
                             JTextArea ti = ticket.areaTicket;
 
-                            for (int i = 0; i < tabla.getRowCount(); i++) {
-
-                                ti.setText("H&L Co. Logistica\n"
-                                        + "\nProducto = " + tabla.getValueAt(i, 0)
-                                        + "\nCantidad = x" + tabla.getValueAt(i, 1)
-                                        + "\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)
-                                        + "\nCódigo = #" + tabla.getValueAt(i, 2));
+                            tabla.getModel();
+                            int nRow = model.getRowCount();
+                            ti.append((String) "H&L Co. Software\n");
+                            ti.append((String) "-------------------------------------\n");
+                            for (int i = 0; i < nRow; i++) {
+                                ti.append((String) "\nProducto = " + tabla.getValueAt(i, 0));
+                                ti.append((String) "\nCantidad = x" + tabla.getValueAt(i, 1));
+                                ti.append((String) "\nPrecio x Unidad = $" + tabla.getValueAt(i, 3));
+                                ti.append((String) "\nCódigo = #" + tabla.getValueAt(i, 2));
+                                ti.append("\n");
 
                             }
-                            ti.setText("\n\n\nTOTAL = $" + total.getText()
-                                    + "\nVuelto = $" + vuelto.getText());
+                            ti.append((String) "\n\n\nTOTAL = $" + total.getText());
+                            ti.append((String) "\nVuelto = $" + vuelto.getText());
+                            ti.append((String) "\n\n\n¡Gracias por su compra!");
 
                         }
+
                     }
+
                 }
             }
 
         });
-        
+
         JButton limpiar = new JButton("Limpiar");
         limpiar.setBounds(475, 550, 100, 30);
         limpiar.addActionListener(new ActionListener() {
@@ -464,7 +444,7 @@ public class Interface extends JFrame {
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (respuesta == JOptionPane.YES_OPTION) {
-                    
+
                     product.setText("");
                     cantidad.setText("");
                     codigo.setText("");
