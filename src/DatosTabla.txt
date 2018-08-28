@@ -3,14 +3,14 @@ H&L Co. Logistica
 Producto = c
 Cantidad = x3
 Precio x Unidad = $3
-Código = #56342
+Código = #322323
 
 Producto = f
-Cantidad = x4
-Precio x Unidad = $23
-Código = #4343
+Cantidad = x3
+Precio x Unidad = $6
+Código = #43
 
 
 
-TOTAL = $101.0
-Vuelto = $10.0
+TOTAL = $27.0
+Vuelto = $3.0

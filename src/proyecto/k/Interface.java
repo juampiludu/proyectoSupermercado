@@ -263,7 +263,7 @@ public class Interface extends JFrame {
         agregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                
+
                 if (codigo.getText().equals("") || product.getText().equals("") || cantidad.getText().equals("") || precio.getText().equals("")) {
 
                 } else {
@@ -386,9 +386,9 @@ public class Interface extends JFrame {
         });
 
         ////// Boton para generar Ticket //////////
-        JButton pdf = new JButton("Finalizar");
-        pdf.setBounds(300, 550, 100, 30);
-        pdf.addActionListener(new ActionListener() {
+        JButton fin = new JButton("Finalizar");
+        fin.setBounds(300, 550, 100, 30);
+        fin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 int respuesta = JOptionPane.showConfirmDialog(null,
@@ -398,50 +398,88 @@ public class Interface extends JFrame {
                         JOptionPane.QUESTION_MESSAGE);
                 if (respuesta == JOptionPane.YES_OPTION) {
 
-                    try {
-                        String archivo = "src/DatosTabla.txt";
-                        BufferedWriter bfw = new BufferedWriter(new FileWriter(archivo));
-                        bfw.write("H&L Co. Logistica\n");
+                    if (vuelto.getText().equals("")) {
 
-                        for (int i = 0; i < tabla.getRowCount(); i++) {
+                        JOptionPane.showMessageDialog(null, "No se ingreso dinero para la compra de los productos", "Error", JOptionPane.ERROR_MESSAGE);
 
-                            bfw.write((String) ("\nProducto = " + tabla.getValueAt(i, 0)));
-                            bfw.write((String) ("\nCantidad = x" + tabla.getValueAt(i, 1)));
-                            bfw.write((String) ("\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)));
-                            bfw.write((String) ("\nCódigo = #" + tabla.getValueAt(i, 2)));
+                    } else {
 
-                            bfw.newLine();
+                        try {
+                            String archivo = "src/DatosTabla.txt";
+                            BufferedWriter bfw = new BufferedWriter(new FileWriter(archivo));
+                            bfw.write("H&L Co. Logistica\n");
+
+                            for (int i = 0; i < tabla.getRowCount(); i++) {
+
+                                bfw.write((String) ("\nProducto = " + tabla.getValueAt(i, 0)));
+                                bfw.write((String) ("\nCantidad = x" + tabla.getValueAt(i, 1)));
+                                bfw.write((String) ("\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)));
+                                bfw.write((String) ("\nCódigo = #" + tabla.getValueAt(i, 2)));
+
+                                bfw.newLine();
+
+                            }
+                            bfw.write((String) ("\n\n\nTOTAL = $" + total.getText()));
+                            bfw.write((String) ("\nVuelto = $" + vuelto.getText()));
+                            bfw.close();
+
+                            System.out.println("El archivo fue salvado correctamente!");
+                        } catch (IOException e) {
 
                         }
-                        bfw.write((String) ("\n\n\nTOTAL = $" + total.getText()));
-                        bfw.write((String) ("\nVuelto = $" + vuelto.getText()));
-                        bfw.close();
 
-                        System.out.println("El archivo fue salvado correctamente!");
-                    } catch (IOException e) {
+                        if (respuesta == JOptionPane.YES_OPTION) {
+                            TicketDeVenta ticket = new TicketDeVenta();
+                            ticket.setVisible(true);
+                            ticket.setLocationRelativeTo(null);
+                            JTextArea ti = ticket.areaTicket;
 
+                            for (int i = 0; i < tabla.getRowCount(); i++) {
+
+                                ti.setText("H&L Co. Logistica\n"
+                                        + "\nProducto = " + tabla.getValueAt(i, 0)
+                                        + "\nCantidad = x" + tabla.getValueAt(i, 1)
+                                        + "\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)
+                                        + "\nCódigo = #" + tabla.getValueAt(i, 2));
+
+                            }
+                            ti.setText("\n\n\nTOTAL = $" + total.getText()
+                                    + "\nVuelto = $" + vuelto.getText());
+
+                        }
                     }
-
-                }
-                if (respuesta == JOptionPane.YES_OPTION) {
-                    TicketDeVenta ticket = new TicketDeVenta();
-                    ticket.setVisible(true);
-                    ticket.setLocationRelativeTo(null);
-                    JTextArea ti = ticket.areaTicket;
-
-                    for (int i = 0; i < tabla.getRowCount(); i++)
-                        ti.setText("H&L Co. Logistica\n"
-                                + "\nProducto = " + tabla.getValueAt(i, 0)
-                                + "\nCantidad = x" + tabla.getValueAt(i, 1)
-                                + "\nPrecio x Unidad = $" + tabla.getValueAt(i, 3)
-                                + "\nCódigo = #" + tabla.getValueAt(i, 2)
-                                + "\n\n\nTOTAL = $" + total.getText()
-                                + "\nVuelto = $" + vuelto.getText());
-                    
-
                 }
             }
 
+        });
+        
+        JButton limpiar = new JButton("Limpiar");
+        limpiar.setBounds(475, 550, 100, 30);
+        limpiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                int respuesta = JOptionPane.showConfirmDialog(null,
+                        "¿Limpiar ventana?",
+                        "Limpiar",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (respuesta == JOptionPane.YES_OPTION) {
+                    
+                    product.setText("");
+                    cantidad.setText("");
+                    codigo.setText("");
+                    precio.setText("");
+                    total.setText("");
+                    recibido.setText("");
+                    vuelto.setText("");
+
+                    tabla.getModel();
+                    int a = tabla.getRowCount() - 1;
+                    for (int i = a; i >= 0; i--) {
+                        model.removeRow(model.getRowCount() - 1);
+                    }
+                }
+            }
         });
 
         ///////////////////////////////////
@@ -466,7 +504,8 @@ public class Interface extends JFrame {
         frame.add(hora);
         frame.add(salir);
         frame.add(ok);
-        frame.add(pdf);
+        frame.add(fin);
+        frame.add(limpiar);
         frame.setVisible(true);
 
     }
