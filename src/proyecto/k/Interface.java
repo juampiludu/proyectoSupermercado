@@ -255,7 +255,7 @@ public class Interface extends JFrame {
         tabla.setRowHeight(30);
         tabla.setBackground(Color.GREEN);
         JScrollPane scroll = new JScrollPane(tabla);
-        scroll.setBounds(300, 20, 450, 500);
+        scroll.setBounds(300, 20, 450, 450);
 
         Object[] row = new Object[4];
         agregar.addActionListener(new ActionListener() {
@@ -281,6 +281,8 @@ public class Interface extends JFrame {
                     String a = "";
                     String c = "";
                     double totaly = 0;
+                    double subtotaly = 0;
+                    double subtotal = 0;
                     double b = 0;
 
                     for (int fila = 0; fila < tabla.getRowCount(); fila++) {
@@ -289,8 +291,10 @@ public class Interface extends JFrame {
                         c = String.valueOf(tabla.getValueAt(fila, 1));
                         b = Integer.valueOf(a) * Integer.valueOf(c);
                         totaly = totaly + b;
+                        subtotaly = totaly * 5.5 / 100;
+                        subtotal = totaly + subtotaly;
                     }
-                    total.setText(String.valueOf(totaly));
+                    total.setText(String.valueOf(subtotal));
 
                 }
             }
@@ -313,6 +317,8 @@ public class Interface extends JFrame {
                         String a = "";
                         String c = "";
                         double totaly = 0;
+                        double subtotaly = 0;
+                        double subtotal = 0;
                         double b = 0;
 
                         for (int fila = 0; fila < tabla.getRowCount(); fila++) {
@@ -321,10 +327,10 @@ public class Interface extends JFrame {
                             c = String.valueOf(tabla.getValueAt(fila, 1));
                             b = Integer.valueOf(a) * Integer.valueOf(c);
                             totaly = totaly + b;
-
+                            subtotaly = totaly * 5.5 / 100;
+                            subtotal = totaly + subtotaly;
                         }
-
-                        total.setText(String.valueOf(totaly));
+                        total.setText(String.valueOf(subtotal));
 
                     } else {
                         System.out.println("Delete Error");
@@ -364,6 +370,8 @@ public class Interface extends JFrame {
                     String a = "";
                     String c = "";
                     double totaly = 0;
+                    double subtotaly = 0;
+                    double subtotal = 0;
                     double b = 0;
 
                     for (int fila = 0; fila < tabla.getRowCount(); fila++) {
@@ -372,10 +380,10 @@ public class Interface extends JFrame {
                         c = String.valueOf(tabla.getValueAt(fila, 1));
                         b = Integer.valueOf(a) * Integer.valueOf(c);
                         totaly = totaly + b;
-
+                        subtotaly = totaly * 5.5 / 100;
+                        subtotal = totaly + subtotaly;
                     }
-
-                    total.setText(String.valueOf(totaly));
+                    total.setText(String.valueOf(subtotal));
 
                 } else {
                     System.out.println("Update Error");
@@ -420,7 +428,7 @@ public class Interface extends JFrame {
                                 ti.append("\n");
 
                             }
-                            ti.append((String) "\n\n\nTOTAL = $" + total.getText());
+                            ti.append((String) "\n\n\nTOTAL + IVA 5,5 % = $" + total.getText());
                             ti.append((String) "\nVuelto = $" + vuelto.getText());
                             ti.append((String) "\n\n\n¡Gracias por su compra!");
 
