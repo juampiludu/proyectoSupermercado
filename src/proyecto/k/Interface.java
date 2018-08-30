@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.imageio.ImageIO;
@@ -143,10 +144,13 @@ public class Interface extends JFrame {
                         && (caracter != '\b')) {
                     e.consume();
                 }
+
             }
         });
 
         ////////BOTONES DE LA TABLA////////////
+        DecimalFormat formato1 = new DecimalFormat("#.##");
+
         JButton agregar = new JButton("Agregar");
         agregar.setBounds(30, 320, 120, 30);
 
@@ -195,7 +199,7 @@ public class Interface extends JFrame {
                         double y = Double.valueOf(total.getText());
                         double z = x - y;
 
-                        vuelto.setText(String.valueOf(z));
+                        vuelto.setText(String.valueOf(formato1.format(z)));
                     }
                 }
             }
@@ -281,7 +285,7 @@ public class Interface extends JFrame {
                     String a = "";
                     String c = "";
                     double totaly = 0;
-                    double subtotaly = 0;
+                    double ivatotaly = 0;
                     double subtotal = 0;
                     double b = 0;
 
@@ -291,8 +295,8 @@ public class Interface extends JFrame {
                         c = String.valueOf(tabla.getValueAt(fila, 1));
                         b = Integer.valueOf(a) * Integer.valueOf(c);
                         totaly = totaly + b;
-                        subtotaly = totaly * 5.5 / 100;
-                        subtotal = totaly + subtotaly;
+                        ivatotaly = totaly * 5 / 100;
+                        subtotal = totaly + ivatotaly;
                     }
                     total.setText(String.valueOf(subtotal));
 
@@ -317,7 +321,7 @@ public class Interface extends JFrame {
                         String a = "";
                         String c = "";
                         double totaly = 0;
-                        double subtotaly = 0;
+                        double ivatotaly = 0;
                         double subtotal = 0;
                         double b = 0;
 
@@ -327,8 +331,8 @@ public class Interface extends JFrame {
                             c = String.valueOf(tabla.getValueAt(fila, 1));
                             b = Integer.valueOf(a) * Integer.valueOf(c);
                             totaly = totaly + b;
-                            subtotaly = totaly * 5.5 / 100;
-                            subtotal = totaly + subtotaly;
+                            ivatotaly = totaly * 5 / 100;
+                            subtotal = totaly + ivatotaly;
                         }
                         total.setText(String.valueOf(subtotal));
 
@@ -370,7 +374,7 @@ public class Interface extends JFrame {
                     String a = "";
                     String c = "";
                     double totaly = 0;
-                    double subtotaly = 0;
+                    double ivatotaly = 0;
                     double subtotal = 0;
                     double b = 0;
 
@@ -380,8 +384,8 @@ public class Interface extends JFrame {
                         c = String.valueOf(tabla.getValueAt(fila, 1));
                         b = Integer.valueOf(a) * Integer.valueOf(c);
                         totaly = totaly + b;
-                        subtotaly = totaly * 5.5 / 100;
-                        subtotal = totaly + subtotaly;
+                        ivatotaly = totaly * 5 / 100;
+                        subtotal = totaly + ivatotaly;
                     }
                     total.setText(String.valueOf(subtotal));
 
@@ -389,6 +393,57 @@ public class Interface extends JFrame {
                     System.out.println("Update Error");
                 }
             }
+        });
+
+        //////////////DESCUENTOS///////////
+        JLabel desc = new JLabel("Descuentos %:");
+        desc.setBounds(300, 490, 160, 30);
+
+        JComboBox combo = new JComboBox();
+        combo.addItem("-");
+        combo.addItem(10);
+        combo.addItem(20);
+        combo.addItem(30);
+        combo.addItem(40);
+        combo.addItem(50);
+        combo.setBounds(475, 490, 100, 30);
+
+        JButton validar = new JButton("Validar");
+        validar.setBounds(650, 490, 100, 30);
+        validar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                String opcion = combo.getSelectedItem().toString();
+
+                if (opcion.equals("-")) {
+                    JOptionPane.showMessageDialog(null, "No hay descuentos ingresados", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+
+                    String a = "";
+                    String c = "";
+                    double totaly = 0;
+                    double ivatotaly = 0;
+                    double descuento1 = 0;
+                    double subtotal = 0;
+                    double total1 = 0;
+                    double b = 0;
+                    int comb = (int) combo.getSelectedItem();
+
+                    for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+
+                        a = String.valueOf(tabla.getValueAt(fila, 3));
+                        c = String.valueOf(tabla.getValueAt(fila, 1));
+                        b = Integer.valueOf(a) * Integer.valueOf(c);
+                        totaly = totaly + b;
+                        ivatotaly = totaly * 5 / 100;
+                        subtotal = totaly + ivatotaly;
+                        descuento1 = comb * subtotal / 100;
+                        total1 = subtotal - descuento1;
+                    }
+                    total.setText(String.valueOf(total1));
+                }
+            }
+
         });
 
         ////// Boton para generar Ticket //////////
@@ -415,11 +470,12 @@ public class Interface extends JFrame {
                             ticket.setVisible(true);
                             ticket.setLocationRelativeTo(null);
                             JTextArea ti = ticket.areaTicket;
+                            String opcion = combo.getSelectedItem().toString();
 
                             tabla.getModel();
                             int nRow = model.getRowCount();
                             ti.append((String) "H&L Co. Software\n");
-                            ti.append((String) "-------------------------------------\n");
+                            ti.append((String) "-------------------------------------");
                             for (int i = 0; i < nRow; i++) {
                                 ti.append((String) "\nProducto = " + tabla.getValueAt(i, 0));
                                 ti.append((String) "\nCantidad = x" + tabla.getValueAt(i, 1));
@@ -428,8 +484,24 @@ public class Interface extends JFrame {
                                 ti.append("\n");
 
                             }
-                            ti.append((String) "\n\n\nTOTAL + IVA 5,5 % = $" + total.getText());
+                            if (opcion.equals("10")) {
+                                ti.append((String) "\n\nDescuento del 10 %");
+                            }
+                            if (opcion.equals("20")) {
+                                ti.append((String) "\n\nDescuento del 20 %");
+                            }
+                            if (opcion.equals("30")) {
+                                ti.append((String) "\n\nDescuento del 30 %");
+                            }
+                            if (opcion.equals("40")) {
+                                ti.append((String) "\n\nDescuento del 40 %");
+                            }
+                            if (opcion.equals("50")) {
+                                ti.append((String) "\n\n\nDescuento del 50 %");
+                            }
+                            ti.append((String) "\n\nTOTAL = $" + total.getText());
                             ti.append((String) "\nVuelto = $" + vuelto.getText());
+                            ti.append((String) "\nIVA del 5 %");
                             ti.append((String) "\n\n\n¡Gracias por su compra!");
 
                         }
@@ -466,31 +538,9 @@ public class Interface extends JFrame {
                     for (int i = a; i >= 0; i--) {
                         model.removeRow(model.getRowCount() - 1);
                     }
+
                 }
             }
-        });
-        
-        //DESCUENTOS/////
-        
-        JLabel desc = new JLabel("Descuentos :");
-        desc.setBounds(300, 490, 160, 30);
-        
-        JComboBox combo = new JComboBox();
-        combo.addItem("10%");
-        combo.addItem("20%");
-        combo.addItem("30%");
-        combo.addItem("40%");
-        combo.addItem("50%");
-        combo.setBounds(475, 490, 100, 30);
-    
-        JButton validar = new JButton("Validar");
-        validar.setBounds(650, 490, 100, 30);
-        validar.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                
-            }
-            
         });
 
         ///////////////////////////////////

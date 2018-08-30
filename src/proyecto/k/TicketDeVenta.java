@@ -62,7 +62,7 @@ public class TicketDeVenta extends javax.swing.JFrame {
         areaTicket.setRows(5);
         jScrollPane1.setViewportView(areaTicket);
 
-        btnruta.setText("Buscar");
+        btnruta.setText("Guardar");
         btnruta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnrutaActionPerformed(evt);
@@ -76,7 +76,6 @@ public class TicketDeVenta extends javax.swing.JFrame {
             }
         });
 
-        txtruta.setEditable(false);
         txtruta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtrutaActionPerformed(evt);
