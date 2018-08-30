@@ -469,6 +469,29 @@ public class Interface extends JFrame {
                 }
             }
         });
+        
+        //DESCUENTOS/////
+        
+        JLabel desc = new JLabel("Descuentos :");
+        desc.setBounds(300, 490, 160, 30);
+        
+        JComboBox combo = new JComboBox();
+        combo.addItem("10%");
+        combo.addItem("20%");
+        combo.addItem("30%");
+        combo.addItem("40%");
+        combo.addItem("50%");
+        combo.setBounds(475, 490, 100, 30);
+    
+        JButton validar = new JButton("Validar");
+        validar.setBounds(650, 490, 100, 30);
+        validar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                
+            }
+            
+        });
 
         ///////////////////////////////////
         frame.add(product);
@@ -494,6 +517,9 @@ public class Interface extends JFrame {
         frame.add(ok);
         frame.add(fin);
         frame.add(limpiar);
+        frame.add(combo);
+        frame.add(desc);
+        frame.add(validar);
         frame.setVisible(true);
 
     }
