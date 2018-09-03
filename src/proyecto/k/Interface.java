@@ -21,7 +21,7 @@ public class Interface extends JFrame {
 
     public Interface() {
 
-        JFrame frame = new JFrame("Zona de Cobro - H&L Co.");
+        JFrame frame = new JFrame("Zona de Cobro - H&L Co. Software");
         frame.setSize(780, 635);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -428,6 +428,9 @@ public class Interface extends JFrame {
                     double total1 = 0;
                     double b = 0;
                     int comb = (int) combo.getSelectedItem();
+                    double x = Double.valueOf(recibido.getText());
+                    double y = Double.valueOf(total.getText());
+                    double z = x - y;
 
                     for (int fila = 0; fila < tabla.getRowCount(); fila++) {
 
@@ -439,8 +442,10 @@ public class Interface extends JFrame {
                         subtotal = totaly + ivatotaly;
                         descuento1 = comb * subtotal / 100;
                         total1 = subtotal - descuento1;
+                        
                     }
                     total.setText(String.valueOf(total1));
+                    vuelto.setText(String.valueOf(formato1.format(z)));
                 }
             }
 
