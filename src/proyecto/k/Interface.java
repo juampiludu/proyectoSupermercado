@@ -160,7 +160,7 @@ public class Interface extends JFrame {
         JButton quitar = new JButton("Quitar");
         quitar.setBounds(30, 400, 120, 30);
 
-        JButton salir = new JButton("Salir");
+        JButton salir = new JButton("Atrás");
         salir.setBounds(650, 550, 100, 30);
         salir.addActionListener(new ActionListener() {
             @Override

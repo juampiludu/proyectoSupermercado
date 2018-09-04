@@ -33,8 +33,6 @@ public class Eject {
                 new LogIn().setVisible(true);
             }
         });
-        
-//        Interface supermerc = new Interface();
     
     }
 }
